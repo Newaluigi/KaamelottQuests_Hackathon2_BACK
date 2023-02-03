@@ -16,6 +16,18 @@ app.get("/kingdoms",(req,res)=>{
     });
 });
 
+app.get("/knights/:id",(req,res)=>{
+    const id = req.params.id
+    database
+    .query("SELECT * FROM knights where id = ? ", id )
+    .then(([knights])=>res.json(knights))
+    .catch((err)=>{
+        console.error(err);
+        res.status(500)
+        .send("error retrieving data from database");
+    });
+});
+
 app.get("/quests",(req,res)=>{
     database
     .query("SELECT * FROM quests")
